@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">Media Player</string>
+    <string name="play_action">►/□</string>
+    <string name="noti_msg">Media player is running&#8230;</string>
+	<string name="x_action">&#160;&#160;X&#160;&#160;</string>
+</resources>

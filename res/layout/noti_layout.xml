@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:orientation="horizontal" 
+    android:theme="@style/AppTheme"
+    >
+    
+	<LinearLayout
+	    style="@style/AppTheme"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:background="?android:attr/colorBackground"
+	    android:orientation="vertical" 
+	    android:theme="@style/AppTheme">
+
+	<ImageView
+	    style="@style/AppTheme"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:contentDescription="@string/noti_msg"
+	    android:src="@drawable/ic_launcher" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/AppTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
+        android:orientation="vertical" 
+        android:theme="@style/AppTheme">
+
+        <TextView
+            style="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti_msg"
+            android:textColor="?android:attr/colorForeground" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/playActor"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/play_action"
+                android:textColor="?android:attr/colorForeground"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/exitActor"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/x_action"
+                android:textColor="#A00"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
