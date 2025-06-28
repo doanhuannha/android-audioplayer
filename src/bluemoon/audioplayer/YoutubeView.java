@@ -34,6 +34,8 @@ class YoutubeView extends WebView {
 	private MainActivity _context;
 	protected static YoutubeView s_current = null;
 	private String _prevUrl = "";
+	final static String APP_URL = "file:///android_asset/index.htm";
+	//final static String APP_URL = "http://dev-world.net/music/";
 	@SuppressLint("SetJavaScriptEnabled")
 	public YoutubeView(MainActivity context) {
 		super(context);
@@ -47,8 +49,11 @@ class YoutubeView extends WebView {
 		settings.setDisplayZoomControls(false);
 		settings.setJavaScriptEnabled(true);
 		settings.setDomStorageEnabled(true);
-		//settings.setAllowUniversalAccessFromFileURLs(true);
-		//settings.setAllowFileAccessFromFileURLs(true);
+		
+		settings.setAllowFileAccess(true);
+		settings.setAllowFileAccessFromFileURLs(true);
+		settings.setAllowUniversalAccessFromFileURLs(true);
+		
 		settings.setAllowFileAccess(true);
 		settings.setAllowContentAccess(true);
 		settings.setUseWideViewPort(true);
@@ -127,7 +132,7 @@ class YoutubeView extends WebView {
 			@Override
 			public void onPageStarted(WebView view, final String url, Bitmap favicon) {
 				// TODO Auto-generated method stub
-				if(url.startsWith("http://dev-world.net") || url.startsWith("data:")){ 
+				if(url.startsWith(APP_URL) || url.startsWith("data:")){ 
 					_prevUrl = url;
 					super.onPageStarted(view, url, favicon);
 					if(!url.startsWith("data:")){
@@ -159,14 +164,14 @@ class YoutubeView extends WebView {
 				else if(url.startsWith("https://youtu.be")){
 					stopLoading();
 					String videoId = url.substring(url.lastIndexOf("/"));
-					if(videoId!=null && !videoId.isEmpty())loadUrl("http://dev-world.net/music/?v="+videoId);
+					if(videoId!=null && !videoId.isEmpty())loadUrl(APP_URL+"?v="+videoId);
 					else loadUrl(_prevUrl);
 				}
 				else if(url.startsWith("https://www.youtube.com")){
 					stopLoading();
 					Uri uri = Uri.parse(url);
 					String videoId = uri.getQueryParameter("v");
-					if(videoId!=null) loadUrl("http://dev-world.net/music/?v="+videoId);
+					if(videoId!=null) loadUrl(APP_URL+"?v="+videoId);
 					else loadUrl(_prevUrl);
 				}
 				else {
@@ -210,7 +215,7 @@ class YoutubeView extends WebView {
 				// TODO Auto-generated method stub
 				super.onPageFinished(view, url);
 				timeout = false;
-				if(!(url.startsWith("data:") || url.startsWith("http://dev-world.net"))){
+				if(!(url.startsWith("data:") || url.startsWith(APP_URL))){
 					MainActivity.s_Current.showMessage("Invalid request:" + url);
 					String title = view.getTitle();
 					Log.v("DEBUG", url+" => "+title);

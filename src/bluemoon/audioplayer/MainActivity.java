@@ -81,6 +81,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	private static final int BT_EXIT = 0x4;
 	private static final int BT_CLEAR = 0x5;
 	private static final int BT_YTB = 0x6;
+	private static final int BT_SFL = 0x7;
 
 	private static final int EXIT_NONE = 0x0;
 	private static final int EXIT_FINISH_LIST = 0x1;
@@ -94,8 +95,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	private AudioFileListView _fileList;
 	private AudioPlayer _player;
 	private LinearLayout _mainLayout, _toolbar;
-
-	private Button _btAdd, _btLoad, _btSave, _btExit, _btClear, _btYtb;
 	private int _exitMode = EXIT_NONE, _timeoutDuration = 0;
 	private PlayListDB _playlist;
 	
@@ -116,66 +115,68 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		layoutParams.setMargins(3, 3, 3, 3);
 		layoutParams.gravity = Gravity.CENTER;
 
-		_btYtb = new Button(this);
-		_btYtb.setText(" YTB ");
-		_btYtb.setId(BT_YTB);
-		_btYtb.getBackground().setColorFilter(Color.argb(0xFF, 255, 0x6A, 34),
-				PorterDuff.Mode.MULTIPLY);
-		_btYtb.setOnClickListener(this);
-		_btYtb.setLayoutParams(layoutParams);
-
-		_btAdd = new Button(this);
-		_btAdd.setText(" Add ");
-		_btAdd.setId(BT_ADD);
-		_btAdd.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34),
-				PorterDuff.Mode.MULTIPLY);
-		_btAdd.setOnClickListener(this);
-		_btAdd.setLayoutParams(layoutParams);
-
-		_btClear = new Button(this);
-		_btClear.setText("Clear");
-		_btClear.setId(BT_CLEAR);
-		_btClear.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34),
-				PorterDuff.Mode.MULTIPLY);
-		_btClear.setOnClickListener(this);
-		_btClear.setLayoutParams(layoutParams);
-
-		_btLoad = new Button(this);
-		_btLoad.setText("Load");
-		_btLoad.setId(BT_LOAD);
-		_btLoad.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34),
-				PorterDuff.Mode.MULTIPLY);
-		_btLoad.setOnClickListener(this);
-		_btLoad.setLayoutParams(layoutParams);
-		_btLoad.setVisibility(View.GONE);
-
-		_btSave = new Button(this);
-		_btSave.setText("Save");
-		_btSave.setId(BT_SAVE);
-		_btSave.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34),
-				PorterDuff.Mode.MULTIPLY);
-		_btSave.setOnClickListener(this);
-		_btSave.setLayoutParams(layoutParams);
-		_btSave.setVisibility(View.GONE);
-
-		_btExit = new Button(this);
-		_btExit.setText(" Quit ");
-		_btExit.setId(BT_EXIT);
-		_btExit.getBackground().setColorFilter(Color.argb(0xFF, 205, 0, 0),
-				PorterDuff.Mode.MULTIPLY);
-		_btExit.setOnClickListener(this);
-		_btExit.setLayoutParams(layoutParams);
-
 		_toolbar = new LinearLayout(0x0, this);
 		_toolbar.setLayoutParams(layoutParams);
 		_toolbar.setOrientation(LinearLayout.HORIZONTAL);
+		Button bt = null;
+		bt = new Button(this);
+		bt.setText(" YTB ");
+		bt.setId(BT_YTB);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 255, 0x6A, 34), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		_toolbar.addView(bt);
+		
+		bt = new Button(this);
+		bt.setText(" Add ");
+		bt.setId(BT_ADD);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		_toolbar.addView(bt);
+		
+		bt = new Button(this);
+		bt.setText("Clear");
+		bt.setId(BT_CLEAR);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		_toolbar.addView(bt);
+		
+		bt = new Button(this);
+		bt.setText("Load");
+		bt.setId(BT_LOAD);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		bt.setVisibility(View.GONE);
+		_toolbar.addView(bt);
+		
+		bt = new Button(this);
+		bt.setText("Save");
+		bt.setId(BT_SAVE);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 34, 139, 34), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		bt.setVisibility(View.GONE);
+		_toolbar.addView(bt);
+		
+		bt = new Button(this);
+		bt.setText("  ↑↓  ");
+		bt.setId(BT_SFL);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 225, 193, 110), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		_toolbar.addView(bt);
 
-		_toolbar.addView(_btYtb);
-		_toolbar.addView(_btAdd);
-		_toolbar.addView(_btClear);
-		_toolbar.addView(_btLoad);
-		_toolbar.addView(_btSave);
-		_toolbar.addView(_btExit);
+		bt = new Button(this);
+		bt.setText(" Quit ");
+		bt.setId(BT_EXIT);
+		bt.getBackground().setColorFilter(Color.argb(0xFF, 205, 0, 0), PorterDuff.Mode.MULTIPLY);
+		bt.setOnClickListener(this);
+		bt.setLayoutParams(layoutParams);
+		_toolbar.addView(bt);
+		
 
 		_player = new AudioPlayer(this);
 		_player.setVisibilityButtons(AudioPlayer.BT_RECORD, View.GONE);
@@ -236,11 +237,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		String[] s = _playlist.getTempPlayList();
 		if (s != null) {
 			for (int i = 0; i < s.length; i++) {
-				_fileList.addItem(new ListViewItem(s[i], s[i].substring(s[i]
-						.lastIndexOf("/") + 1), null));
+				_fileList.addItem(new ListViewItem(s[i], s[i].substring(s[i].lastIndexOf("/") + 1), null));
 			}
 		}
-
 		s = _playlist.getLastMedia();
 		if (s != null) {
 			ListViewItem[] items = _fileList.getItems();
@@ -394,9 +393,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 					Gravity.FILL));
 			webView.addView(ytbViewer);
 			if (params == null)
-				ytbViewer.loadUrl("http://dev-world.net/music/");
+				ytbViewer.loadUrl(YoutubeView.APP_URL);
 			else
-				ytbViewer.loadUrl("http://dev-world.net/music/?" + params);
+				ytbViewer.loadUrl(YoutubeView.APP_URL+"?" + params);
 			setContentView(webView);
 		}
 		
@@ -408,24 +407,28 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		if (v instanceof Button) {
 			Button bt = (Button) v;
 			switch (bt.getId()) {
-			case BT_EXIT: {
-				openExitOptions();
-			}
+				case BT_EXIT: {
+					openExitOptions();
+				}
 				break;
-			case BT_ADD: {
-				viewSelectFileScreen();
-			}
+				case BT_ADD: {
+					viewSelectFileScreen();
+				}
 				break;
-			case BT_CLEAR: {
-				_fileList.clearItems();
-				_fileList.refresh();
-				_player.stop();
-				_player.setMediaFilePath(null);
-			}
+				case BT_CLEAR: {
+					_fileList.clearItems();
+					_fileList.refresh();
+					_player.stop();
+					_player.setMediaFilePath(null);
+				}
 				break;
-			case BT_YTB: {
-				openYtbWebPlayer(null);
-			}
+				case BT_YTB: {
+					openYtbWebPlayer(null);
+				}
+				break;
+				case BT_SFL: {
+					_fileList.shuffle();
+				}
 				break;
 			}
 		} else {
